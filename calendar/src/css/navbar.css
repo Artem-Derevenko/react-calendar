@@ -6,22 +6,36 @@
     left: 15px;
     display: flex;
     justify-content: space-between;
-    background: #f7f7f7;
+    align-items: center;
+    background: #fff;
     border-radius: 30px;
     padding: 0 20px;
     -webkit-box-shadow: 8px 9px 10px -12px rgba(0,0,0,0.57);
     -moz-box-shadow: 8px 9px 10px -12px rgba(0,0,0,0.57);
     box-shadow: 8px 9px 10px -12px rgba(0,0,0,0.57);
-    border: 1px solid #d7d7d7;
+    border: 1px solid rgba(206, 215, 215, 0.89);
 }
 
 .navbar > div {
     width: auto;
-    height: 50px;
+    height: 30px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    font-size: 11px;
+    font-size: 10px;
     cursor: pointer;
-    color: #888888;
+    color: #9e9a9a;
+}
+
+.navbar > div p {
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+}
+
+.navbar > div.active,
+.navbar > div:hover {
+    color: #0087ff;
 }

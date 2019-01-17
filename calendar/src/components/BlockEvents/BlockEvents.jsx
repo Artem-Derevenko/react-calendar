@@ -5,7 +5,7 @@ class BlockEvents extends Component {
     render() {
         return (
             <div className="block-events">
-
+                Список событий
             </div>
         );
     }

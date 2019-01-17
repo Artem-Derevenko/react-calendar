@@ -1,11 +1,21 @@
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+.transition {
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .App {
   width: 350px;
-  height: 600px;
-  margin: 70px auto 0 auto;
+  height: 500px;
+  margin: 50px auto 0 auto;
   border: 1px solid #cecece;
   overflow: hidden;
   position: relative;
@@ -13,9 +23,10 @@
 
 .wrap {
   width: 700px;
-  height: 600px;
+  height: 500px;
   display: flex;
   position: relative;
+  background: #ebeeed;
 }
 
 .wrap.calendar {

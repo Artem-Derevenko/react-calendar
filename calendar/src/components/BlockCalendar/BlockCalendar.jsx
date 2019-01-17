@@ -5,7 +5,7 @@ class BlockCalendar extends Component {
     render() {
         return (
             <div className="block-calendar">
-
+                Календарь
             </div>
         );
     }

@@ -1,0 +1,39 @@
+.popup-event-wrap {
+    width: 350px;
+    height: 500px;
+    background: #fff;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: -350px;
+    z-index: 10;
+}
+
+.popup-event-wrap.show {
+    left: 0;
+}
+
+.event-header {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.event-header h4 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #0087ff;
+}
+
+.event-header .icon {
+    cursor: pointer;
+    color: #9e9a9a;
+}
+
+.event-header .icon:hover {
+    cursor: pointer;
+    color: #0087ff;
+}
