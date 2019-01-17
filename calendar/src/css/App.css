@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 350px;
+  height: 600px;
+  margin: 70px auto 0 auto;
+  border: 1px solid #cecece;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrap {
+  width: 700px;
+  height: 600px;
+  display: flex;
+  position: relative;
+}
+
+.wrap.calendar {
+  left: 0;
+}
+
+.wrap.events {
+  left: -350px;
+}
