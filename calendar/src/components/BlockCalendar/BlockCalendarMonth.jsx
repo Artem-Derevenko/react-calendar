@@ -9,26 +9,25 @@ class BlockCalendarMonth extends Component {
         this.state = {
             year: new Date().getFullYear(),
             month: new Date().getMonth(),
-            monthName: '',
-
+            monthName: ''
         };
     }
 
     getRefTbody = (node) => { this.calendarRef = node }
 
     componentDidMount() {
-        this.calendar("calendar2", this.state.year, this.state.month);
+        this.calendar(this.state.year, this.state.month);
     }
 
     nextMonth = () => {
-
+        this.calendar(this.state.year, this.state.month + 1);
     }
 
     prevMonth = () => {
-
+        this.calendar(this.state.year, this.state.month - 1);
     }
 
-    calendar = (id, year, month) => {
+    calendar = (year, month) => {
         let Dlast = new Date(year,month+1,0).getDate(),
             D = new Date(year,month,Dlast),
             DNlast = new Date(D.getFullYear(),D.getMonth(),Dlast).getDay(),
@@ -51,48 +50,44 @@ class BlockCalendarMonth extends Component {
             }
         }
         for(let  i = DNlast; i < 7; i++) calendar += '<td class="empty-cell">&nbsp;';
+
         this.setState({
-            innerHTML: calendar,
-            monthName: MONTH[D.getMonth()] +' '+ D.getFullYear()
+            monthName: MONTH[D.getMonth()] +' '+ D.getFullYear(),
+            year: D.getFullYear(),
+            month: D.getMonth()
         });
         const calendarRef = ReactDOM.findDOMNode(this.calendarRef);
         calendarRef.innerHTML = calendar;
-        // document.querySelector('#'+id+' tbody').innerHTML = calendar;
-        // document.querySelector('#'+id+' thead td:nth-child(1)').innerHTML = MONTH[D.getMonth()] +' '+ D.getFullYear();
-        // document.querySelector('#'+id+' thead td:nth-child(1)').dataset.month = D.getMonth();
-        // document.querySelector('#'+id+' thead td:nth-child(1)').dataset.year = D.getFullYear();
     }
 
     render() {
-        const { calendar, getRefTbody, nextMonth, prevMonth } = this;
-        const { innerHTML, monthName } = this.state;
+        const { getRefTbody, nextMonth, prevMonth } = this;
+        const { monthName } = this.state;
 
         return (
-            <div className="">
-                <section>
-                    <table>
-                        <thead>
-                        <tr>
-                            <td className="title" colSpan="5">{monthName}</td>
-                            <td className="prev" onClick={prevMonth} />
-                            <td className="next" onClick={nextMonth} />
-                        </tr>
-                        <tr className="indent"></tr>
-                        <tr>
-                            <td>Пн</td>
-                            <td>Вт</td>
-                            <td>Ср</td>
-                            <td>Чт</td>
-                            <td>Пт</td>
-                            <td>Сб</td>
-                            <td>Нд</td>
-                        </tr>
-                        </thead>
-                        <tbody ref = {getRefTbody}>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
+            <section className=''>
+                <table className='calendar-month'>
+                    <thead>
+                    <tr>
+                        <td className="prev" onClick={prevMonth} />
+                        <td className="title" colSpan="5">{monthName}</td>
+                        <td className="next" onClick={nextMonth} />
+                    </tr>
+                    <tr className="indent"></tr>
+                    <tr>
+                        <td>Пн</td>
+                        <td>Вт</td>
+                        <td>Ср</td>
+                        <td>Чт</td>
+                        <td>Пт</td>
+                        <td>Сб</td>
+                        <td>Нд</td>
+                    </tr>
+                    </thead>
+                    <tbody ref={getRefTbody}>
+                    </tbody>
+                </table>
+            </section>
         );
     }
 }
