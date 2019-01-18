@@ -7,7 +7,7 @@ import { FaThList } from 'react-icons/fa';
 import '../../css/navbar.css';
 
 class NavBar extends Component {
-    switchPage = (page, activeMenu) => {
+    switchPage = (page, activeMenu, calendarType) => {
         this.props.switchPage(page, activeMenu);
     }
 

@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className = "App">
         <div className = {`wrap transition ${page}`}>
-          <BlockCalendar />
+          <BlockCalendar { ... this.state } />
           <BlockEvents />
         </div>
         <NavBar

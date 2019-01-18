@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import BlockCalendarMonth from './BlockCalendarMonth.jsx';
+import BlockCalendarDay from './BlockCalendarDay.jsx';
+import BlockCalendarWeek from './BlockCalendarWeek.jsx';
 import '../../css/calendar.css';
 
 class BlockCalendar extends Component {
     render() {
+        const { activeMenu } = this.props;
+
         return (
             <div className="block-calendar">
-                Календарь
+                { activeMenu === 'month' && <BlockCalendarMonth />}
+                { activeMenu === 'week' && <BlockCalendarWeek />}
+                { activeMenu === 'day' && <BlockCalendarDay />}
             </div>
         );
     }
