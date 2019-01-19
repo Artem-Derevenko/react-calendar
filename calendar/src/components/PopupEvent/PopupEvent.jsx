@@ -19,7 +19,7 @@ class PopupEvent extends Component {
                         className="icon"
                         onClick = {() => onCloseNewEvent()}
                     />
-                    <h4>создать</h4>
+                    <h4>Создать</h4>
                     <FaCheck className="icon"/>
                 </div>
                 тип события - дата - время - текст

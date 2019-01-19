@@ -1,22 +1,101 @@
 .block-calendar {
-    width: 350px;
+    width: 400px;
     height: 100%;
 }
 
-.calendar-month {
-    width: 100%;
+.calendar-table {
     line-height: 1.2em;
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
-    margin-bottom: 32px;
+    margin: 0 auto;
+    color: #545454;
 }
 
-.calendar-month td {
+.calendar-table td {
     vertical-align: middle;
-    color: #444444;
-    font-size: 14px;
-    width: 14.28%;
-    height: 40px;
+    font-size: 12px;
+    width: 30px;
+    height: 30px;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+    border-spacing: 3px;
+    border-collapse: separate;
+}
+
+.calendar-table.week td {
+    width: 30px;
+    height: 30px;
+}
+
+.calendar-table thead td,
+.calendar-table.week thead td {
+    height: 15px;
+}
+
+.calendar-table thead tr:nth-child(1) td {
+    height: 20px;
+}
+
+.calendar-table tbody td {
+    color: #545454;
+}
+
+.calendar-table tbody td.today {
+    color: #fff;
+    background: #0087ff;
+    border-radius: 50%;
+}
+
+.calendar-arrow {
+    text-align: center;
+    font-size: 18px;
+    color: #0087ff;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 20px 0;
+}
+
+.prev,
+.next {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    color: #9e9a9a;
+    cursor: pointer;
+}
+
+.next:hover,
+.prev:hover {
+    color: #0087ff;
+}
+
+.table-week-time {
+    font-size: 12px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    color: #545454;
+    height: 320px;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+}
+
+.table-week-time table,
+.table-day-time table {
+    margin-left: 15px;
+}
+
+.table-week-time td {
+    vertical-align: middle;
+    font-size: 12px;
+    width: 40px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ecf2f5;
     -webkit-transition: all .2s linear;
     -moz-transition: all .2s linear;
     -o-transition: all .2s linear;
@@ -24,75 +103,40 @@
     transition: all .2s linear;
 }
 
-.calendar-month tr.indent {
-    height: 20px;
+.table-week-time tr td:first-child,
+.table-day-time tr td:first-child {
+    background: transparent;
+    border: none;
 }
 
-.calendar-month thead tr:nth-child(1) {
-    margin-bottom: 16px;
-}
-
-.calendar-month thead tr:nth-child(1) td:nth-child(2):hover,
-.calendar-month thead tr:nth-child(1) td:nth-child(3):hover {
-    cursor: pointer;
-}
-
-.calendar-month tbody td {
-    color: #d6d6d6;
-}
-
-.calendar-month tbody td {
-    color: #444444;
-    cursor: pointer;
-}
-
-.calendar-month tbody td.today {
-    background: #0087ff;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 50%;
-}
-
-.prev,
-.next {
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
+.table-day-time {
+    font-size: 12px;
     text-align: center;
-    background: #9e9a9a;
+    margin: 0 auto 0 auto;
+    color: #545454;
+    height: 320px;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
 }
 
-.next:before,
-.prev:before {
-    content: "";
-    display: block;
-    margin: 0 auto;
-    width: 13px;
-    height: 14px;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+.table-day-time tr td:nth-child(1) {
+    vertical-align: middle;
+    font-size: 12px;
+    width: 40px;
+    height: 30px;
 }
 
-.next:hover:before,
-.prev:hover:before {
-    /*background: url("../img/arrow-2.svg");*/
-}
-
-.prev:before {
-    -ms-transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.calendar-month  .title {
-    text-align: left;
-    font-size: 18px;
-    font-weight: 700;
-    color: #333333;
-    text-transform: uppercase;
+.table-day-time tr td:nth-child(2) {
+    vertical-align: middle;
+    font-size: 12px;
+    width: 292px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ecf2f5;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
 }

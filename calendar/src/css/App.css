@@ -13,20 +13,19 @@
 }
 
 .App {
-  width: 350px;
-  height: 500px;
-  margin: 50px auto 0 auto;
+  width: 400px;
+  height: 550px;
+  margin: 30px auto 0 auto;
   border: 1px solid #cecece;
   overflow: hidden;
   position: relative;
 }
 
 .wrap {
-  width: 700px;
-  height: 500px;
+  width: 800px;
+  height: 550px;
   display: flex;
   position: relative;
-  background: #fbfbfb;
 }
 
 .wrap.calendar {
@@ -34,5 +33,5 @@
 }
 
 .wrap.events {
-  left: -350px;
+  left: -400px;
 }
