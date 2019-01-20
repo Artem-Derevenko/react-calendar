@@ -6,13 +6,13 @@ import '../../css/calendar.css';
 
 class BlockCalendar extends Component {
     render() {
-        const { activeMenu } = this.props;
+        const { activeMenu, eventList, showEvent } = this.props;
 
         return (
             <div className="block-calendar">
-                { activeMenu === 'month' && <BlockCalendarMonth />}
-                { activeMenu === 'week' && <BlockCalendarWeek />}
-                { activeMenu === 'day' && <BlockCalendarDay />}
+                { activeMenu === 'month' && <BlockCalendarMonth eventList={eventList} showEvent={showEvent} />}
+                { activeMenu === 'week' && <BlockCalendarWeek eventList={eventList} showEvent={showEvent} />}
+                { activeMenu === 'day' && <BlockCalendarDay eventList={eventList} showEvent={showEvent} />}
             </div>
         );
     }

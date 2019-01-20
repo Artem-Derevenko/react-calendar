@@ -3,17 +3,17 @@ import { FaCheck } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
 import '../../css/popupevent.css';
 
-class PopupEvent extends Component {
+class PopupNewEvent extends Component {
     onCloseNewEvent = () => {
         this.props.addNewEvent(false);
     }
 
     render() {
-        const { show } = this.props;
+        const { newEvent } = this.props;
         const { onCloseNewEvent } = this;
 
         return (
-            <div className={`popup-event-wrap transition ${ show ? 'show' : ''}`}>
+            <div className={`popup-event-wrap transition ${ newEvent ? 'show' : ''}`}>
                 <div className="event-header">
                     <FaTimes
                         className="icon"
@@ -28,4 +28,4 @@ class PopupEvent extends Component {
     }
 }
 
-export default PopupEvent;
+export default PopupNewEvent;

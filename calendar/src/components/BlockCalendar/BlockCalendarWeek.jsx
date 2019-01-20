@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaChevronRight } from 'react-icons/fa';
-import ids from 'short-id';
+import ids from 'shortid';
 
 const MONTH = ["Январь","Февраль","Март",
     "Апрель","Май","Июнь",
@@ -19,7 +19,7 @@ class BlockCalendarWeek extends Component {
     getMonday = (d) => {
         d = new Date(d);
         var day = d.getDay(),
-            diff = d.getDate() - day + (day == 0 ? -6:1);
+            diff = d.getDate() - day + (day === 0 ? -6:1);
         return new Date(d.setDate(diff));
     }
 
@@ -39,9 +39,14 @@ class BlockCalendarWeek extends Component {
         });
     }
 
+    openEvent = (idList) => {
+        this.props.showEvent(idList);
+    }
+
     render() {
-        const { nextWeek, prevWeek } = this;
+        const { nextWeek, prevWeek, openEvent } = this;
         const { firstDayWeek } = this.state;
+        const { eventList } = this.props;
 
         return (
             <section>
@@ -75,7 +80,17 @@ class BlockCalendarWeek extends Component {
                                 let classToday = (day.getDate() === new Date().getDate() &&
                                     day.getFullYear() === new Date().getFullYear() &&
                                     day.getMonth() === new Date().getMonth()) ? 'today' : '';
-                                return <td className={classToday} key={ids.generate()}>
+                                let eventIdList = [];
+                                if (eventList) {
+                                    eventList.map((item) => {
+                                        if (new Date(item.date).getMonth() === day.getMonth() &&
+                                            new Date(item.date).getFullYear() === day.getFullYear() &&
+                                            new Date(item.date).getDate() === day.getDate()) {
+                                            return eventIdList.push(item.id);
+                                        }
+                                    });
+                                }
+                                return <td className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`} key={ids.generate()}>
                                     {day.getDate()}
                                 </td>
                             })}
@@ -85,13 +100,30 @@ class BlockCalendarWeek extends Component {
                 <div className='table-week-time'>
                     <table>
                         <tbody>
-                            {[...Array(24)].map((k, j) => <tr key={ids.generate()}>
+                            {[...Array(24)].map((k, j) => {
+                                return <tr key={ids.generate()}>
                                     <td>{`${j}:00`}</td>
                                     {[...Array(7)].map((x, k) => {
-                                        return <td key={ids.generate()} />
+                                        let day = new Date(firstDayWeek.getFullYear(), firstDayWeek.getMonth(), firstDayWeek.getDate() + k);
+                                        let eventIdList = [];
+                                        if (eventList) {
+                                            eventList.map((item) => {
+                                                if (new Date(item.date).getMonth() === day.getMonth() &&
+                                                    new Date(item.date).getFullYear() === day.getFullYear() &&
+                                                    new Date(item.date).getDate() === day.getDate() &&
+                                                    Number(item.time.split(':')[0]) === j ) {
+                                                    return eventIdList.push(item.id);
+                                                }
+                                            });
+                                        }
+                                        return <td
+                                            className={`${(eventIdList.length > 0) ? 'event' : ''}`}
+                                            key={ids.generate()}
+                                            onClick={(eventIdList.length > 0) ? () => openEvent(eventIdList) : ''}
+                                        />
                                     })}
                                 </tr>
-                            )}
+                            })}
                         </tbody>
                     </table>
                 </div>

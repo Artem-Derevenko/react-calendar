@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaChevronRight } from 'react-icons/fa';
-import ids from "short-id";
+import ids from "shortid";
 
 const MONTH = ["Январь","Февраль","Март",
     "Апрель","Май","Июнь",
@@ -45,9 +45,14 @@ class BlockCalendarMonth extends Component {
         });
     }
 
+    openEvent = (idList) => {
+        this.props.showEvent(idList);
+    }
+
     render() {
-        const { nextMonth, prevMonth } = this;
+        const { nextMonth, prevMonth, openEvent } = this;
         const { dLast, d, dNfirst } = this.state;
+        const { eventList } = this.props;
 
         return (
             <section>
@@ -77,7 +82,17 @@ class BlockCalendarMonth extends Component {
                             return <tr key={ids.generate()}>
                                 {
                                     [...Array(7)].map((y, k) => {
-                                        let ind = i*7 + k + 1; console.log(dLast)
+                                        let ind = i*7 + k + 1;
+                                        let eventIdList = [];
+                                        if (eventList) {
+                                            eventList.map((item) => {
+                                                if (new Date(item.date).getMonth() === d.getMonth() &&
+                                                    new Date(item.date).getFullYear() === d.getFullYear() &&
+                                                    new Date(item.date).getDate() === (ind - dNfirst + 1)) {
+                                                    return eventIdList.push(item.id);
+                                                }
+                                            });
+                                        }
                                         let classToday = ((ind - dNfirst + 1) === new Date().getDate() &&
                                             d.getFullYear() === new Date().getFullYear() &&
                                             d.getMonth() === new Date().getMonth()) ? 'today' : '';
@@ -85,7 +100,13 @@ class BlockCalendarMonth extends Component {
                                         if ( (ind < dNfirst ) || ( (ind - dNfirst + 1) > dLast ) ) {
                                             return <td key={ids.generate()}/>
                                         } else {
-                                            return <td className={classToday} key={ids.generate()}>{ind - dNfirst + 1}</td>
+                                            return <td
+                                                className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`}
+                                                key={ids.generate()}
+                                                onClick={(eventIdList.length > 0) ? () => openEvent(eventIdList) : ''}
+                                            >
+                                                {ind - dNfirst + 1}
+                                            </td>
                                         }
                                     })
                                 }
