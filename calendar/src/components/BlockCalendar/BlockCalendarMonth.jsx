@@ -46,7 +46,9 @@ class BlockCalendarMonth extends Component {
     }
 
     openEvent = (idList) => {
-        this.props.showEvent(idList);
+        if (idList.length > 0) {
+            this.props.showEvent(idList);
+        }
     }
 
     render() {
@@ -103,7 +105,7 @@ class BlockCalendarMonth extends Component {
                                             return <td
                                                 className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`}
                                                 key={ids.generate()}
-                                                onClick={(eventIdList.length > 0) ? () => openEvent(eventIdList) : ''}
+                                                onClick={() => openEvent(eventIdList)}
                                             >
                                                 {ind - dNfirst + 1}
                                             </td>

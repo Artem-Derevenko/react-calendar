@@ -2,18 +2,39 @@ import React, { Component } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaChevronRight } from 'react-icons/fa';
 import ids from 'shortid';
+import firebase from "../../App";
 
-const MONTH = ["Январь","Февраль","Март",
-    "Апрель","Май","Июнь",
-    "Июль","Август","Сентябрь",
-    "Октябрь","Ноябрь","Декабрь"];
+const MONTH = ["января","февраля","марта",
+    "апреля","мая","июня",
+    "июля","августа","сентября",
+    "октября","ноября","декабря"];
 
 class BlockCalendarDay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstDayWeek: this.getMonday(new Date())
+            firstDayWeek: this.getMonday(new Date()),
+            day: new Date(),
+            dayEventList: []
         };
+    }
+
+    componentDidMount() {
+        this.getDayEventList(new Date());
+    }
+
+    getDayEventList = (day) => {
+        if (this.props.eventList) {
+            let eventList = this.props.eventList;
+            let dayEventList = eventList.filter( (item) => {
+                return (new Date(item.date).getMonth() === day.getMonth() &&
+                    new Date(item.date).getFullYear() === day.getFullYear() &&
+                    new Date(item.date).getDate() === day.getDate())
+            });
+            this.setState({
+                dayEventList: dayEventList
+            });
+        }
     }
 
     getMonday = (d) => {
@@ -40,12 +61,21 @@ class BlockCalendarDay extends Component {
     }
 
     openEvent = (idList) => {
-        this.props.showEvent(idList);
+        if (idList.length > 0) {
+            this.props.showEvent(idList);
+        }
+    }
+
+    changeDay = (dayWeek) => {
+        this.getDayEventList(dayWeek);
+        this.setState({
+            day: dayWeek
+        });
     }
 
     render() {
-        const { nextWeek, prevWeek, openEvent } = this;
-        const { firstDayWeek } = this.state;
+        const { nextWeek, prevWeek, openEvent, changeDay } = this;
+        const { firstDayWeek, day, dayEventList } = this.state;
         const { eventList } = this.props;
 
         return (
@@ -54,12 +84,12 @@ class BlockCalendarDay extends Component {
                     <div className="prev" onClick={prevWeek}>
                         <FaChevronLeft />
                     </div>
-                    <div className="title">{MONTH[firstDayWeek.getMonth()] +' '+ firstDayWeek.getFullYear()}</div>
+                    <div className="title">{day.getDate() +' '+ MONTH[day.getMonth()] +' '+ day.getFullYear()}</div>
                     <div className="next" onClick={nextWeek}>
                         <FaChevronRight />
                     </div>
                 </div>
-                <table cellSpacing="12" className='calendar-table week'>
+                <table cellSpacing="12" className='calendar-table day'>
                     <thead>
                         <tr>
                             <td />
@@ -74,24 +104,27 @@ class BlockCalendarDay extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td />
+                            <td className='empty' />
                             {[...Array(7)].map((x, i) => {
-                                let day = new Date(firstDayWeek.getFullYear(), firstDayWeek.getMonth(), firstDayWeek.getDate() + i);
-                                let classToday = (day.getDate() === new Date().getDate() &&
-                                    day.getFullYear() === new Date().getFullYear() &&
-                                    day.getMonth() === new Date().getMonth()) ? 'today' : '';
+                                let dayWeek = new Date(firstDayWeek.getFullYear(), firstDayWeek.getMonth(), firstDayWeek.getDate() + i);
+                                let classToday = (dayWeek.getDate() === day.getDate() &&
+                                    dayWeek.getFullYear() === day.getFullYear() &&
+                                    dayWeek.getMonth() === day.getMonth()) ? 'active' : '';
                                 let eventIdList = [];
                                 if (eventList) {
                                     eventList.map((item) => {
-                                        if (new Date(item.date).getMonth() === day.getMonth() &&
-                                            new Date(item.date).getFullYear() === day.getFullYear() &&
-                                            new Date(item.date).getDate() === day.getDate()) {
+                                        if (new Date(item.date).getMonth() === dayWeek.getMonth() &&
+                                            new Date(item.date).getFullYear() === dayWeek.getFullYear() &&
+                                            new Date(item.date).getDate() === dayWeek.getDate()) {
                                             return eventIdList.push(item.id);
                                         }
                                     });
                                 }
-                                return <td className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`} key={ids.generate()}>
-                                    {day.getDate()}
+                                return <td className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`}
+                                           key={ids.generate()}
+                                           onClick={() => changeDay(dayWeek)}
+                                >
+                                    {dayWeek.getDate()}
                                 </td>
                             })}
                         </tr>
@@ -101,17 +134,13 @@ class BlockCalendarDay extends Component {
                     <table>
                         <tbody>
                         {[...Array(24)].map((k, j) => {
-                            let day = new Date(firstDayWeek.getFullYear(), firstDayWeek.getMonth(), firstDayWeek.getDate() + j);
                             let eventIdList = [];
-                            let eventList = [];
-                            if (eventList) {
-                                eventList.map((item) => {
-                                    if (new Date(item.date).getMonth() === day.getMonth() &&
-                                        new Date(item.date).getFullYear() === day.getFullYear() &&
-                                        new Date(item.date).getDate() === day.getDate() &&
-                                        Number(item.time.split(':')[0]) === j ) {
+                            let eventTextList = [];
+                            if (dayEventList) {
+                                dayEventList.map((item) => {
+                                    if (Number(item.time.split(':')[0]) === j ) {
                                         eventIdList.push(item.id);
-                                        eventList.push(item.text);
+                                        eventTextList.push(item.text);
                                     }
                                 });
                             }
@@ -120,9 +149,9 @@ class BlockCalendarDay extends Component {
                                 <td
                                     className={`${(eventIdList.length > 0) ? 'event' : ''}`}
                                     key={ids.generate()}
-                                    onClick={(eventIdList.length > 0) ? () => openEvent(eventIdList) : ''}
+                                    onClick={() => openEvent(eventIdList)}
                                 >
-                                    {eventList.join(", ")}
+                                    {eventTextList.join(", ")}
                                 </td>
                             </tr>
                         })}

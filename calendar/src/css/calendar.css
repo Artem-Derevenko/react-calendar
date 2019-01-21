@@ -25,13 +25,15 @@
     border-collapse: separate;
 }
 
-.calendar-table.week td {
+.calendar-table.week td,
+.calendar-table.day td {
     width: 30px;
     height: 30px;
 }
 
 .calendar-table thead td,
-.calendar-table.week thead td {
+.calendar-table.week thead td,
+.calendar-table.day thead td {
     height: 15px;
 }
 
@@ -47,11 +49,39 @@
     cursor: pointer;
     position: relative;
     border-radius: 50%;
-    border: 1px solid #0087ff;
+    border: 1px solid #89d2ff;
 }
 
 .calendar-table.week tbody td.event {
     cursor: default;
+}
+
+.calendar-table.day tbody td:not(.empty) {
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #fff;
+}
+
+.calendar-table.day tbody td.event {
+    border: 1px solid #89d2ff;
+}
+
+.calendar-table.day tbody td.active {
+    background: #0087ff;
+    color: #fff;
+    border: 1px solid #0087ff;
+}
+
+.calendar-table.day tbody td.event.active:before,
+.calendar-table.day tbody td.event:hover:before {
+    background: #fff;
+}
+
+.calendar-table.day tbody td:not(.empty):hover {
+    background: #0087ff;
+    color: #fff;
+    border-radius: 50%;
+    border: 1px solid #0087ff;
 }
 
 .calendar-table tbody td.event:before {
@@ -136,7 +166,7 @@
 .table-week-time td.event {
     cursor: pointer;
     position: relative;
-    border: 1px solid #0087ff;
+    border: 1px solid #89d2ff;
 }
 
 .table-week-time tr td:first-child,
@@ -175,4 +205,11 @@
     -o-transition: all .2s linear;
     -ms-transition: all .2s linear;
     transition: all .2s linear;
+    text-align: left;
+    padding: 0 15px;
+}
+
+.table-day-time tr td.event:nth-child(2) {
+    border: 1px solid #89d2ff;
+    cursor: pointer;
 }
