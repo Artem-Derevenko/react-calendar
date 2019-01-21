@@ -41,7 +41,7 @@ class BlockCalendarWeek extends Component {
 
     openEvent = (idList) => {
         if (idList.length > 0) {
-            this.props.showEvent(idList);
+            this.props.viewEvent(idList);
         }
     }
 

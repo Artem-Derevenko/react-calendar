@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase": "^5.8.0",
     "react": "^16.7.0",
+    "react-calendar": "^2.18.0",
     "react-dom": "^16.7.0",
     "react-icons": "^3.3.0",
     "react-mixin": "^2.0.2",

@@ -1,4 +1,39 @@
 .block-events {
     width: 400px;
     height: 100%;
+    padding: 20px;
+}
+
+.event-list {
+    width: 100%;
+    height: 380px;
+    margin-top: 20px;
+    overflow-y: auto;
+}
+
+.event-list.dayEvent {
+    width: 100%;
+    height: 450px;
+    margin-top: 20px;
+    overflow-y: auto;
+}
+
+.event-item {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #89d2ff;
+    margin-bottom: 5px;
+    padding: 15px;
+}
+
+.event-item .date {
+    margin: 0;
+    font-size: 12px;
+    color: #0087ff;
+}
+
+.event-item .text {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: #545454;;
 }

@@ -19,7 +19,8 @@ class App extends Component {
       newEvent: false,
       viewEvent: false,
       eventList: [],
-      eventShowId: []
+      eventViewId: [],
+      dayEventList: []
     };
   }
 
@@ -38,29 +39,43 @@ class App extends Component {
     this.setState({ newEvent: value })
   }
 
-  showEvent = (value) => {
-      this.setState({
-          eventShowId: value,
-          viewEvent: true
-      })
+  viewEvent = (value) => {
+      if (this.state.eventList && value) {
+          let eventViewId = value;
+          let eventList = this.state.eventList;
+          let dayEventList = [];
+          eventViewId.map( (itemId) => {
+              eventList.map( (item) => {
+                  if (item.id === itemId) {
+                      return dayEventList.push(item);
+                  }
+              });
+          });
+          this.setState({
+              dayEventList: dayEventList,
+              eventViewId: value,
+              viewEvent: true
+          });
+      }
   }
 
   closeViewEvent = () => {
       this.setState({
-          eventShowId: [],
+          dayEventList: [],
+          eventViewId: [],
           viewEvent: false
       })
   }
 
   render() {
-    const { page, newEvent, eventShowId } = this.state;
-    const { showEvent, addNewEvent, switchPage, closeViewEvent } = this;
+    const { page } = this.state;
+    const { viewEvent, addNewEvent, switchPage, closeViewEvent } = this;
 
     return (
       <div className="App">
         <div className={`wrap transition ${page}`}>
-          <BlockCalendar { ... this.state } showEvent={showEvent} />
-          <BlockEvents />
+          <BlockCalendar { ... this.state } viewEvent={viewEvent} />
+          <BlockEvents { ... this.state } />
         </div>
         <NavBar
           switchPage={switchPage}

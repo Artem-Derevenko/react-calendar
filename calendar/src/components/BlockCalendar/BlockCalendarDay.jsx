@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 import { FaChevronRight } from 'react-icons/fa';
 import ids from 'shortid';
-import firebase from "../../App";
 
 const MONTH = ["января","февраля","марта",
     "апреля","мая","июня",
@@ -62,7 +61,7 @@ class BlockCalendarDay extends Component {
 
     openEvent = (idList) => {
         if (idList.length > 0) {
-            this.props.showEvent(idList);
+            this.props.viewEvent(idList);
         }
     }
 
