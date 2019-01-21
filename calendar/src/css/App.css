@@ -4,6 +4,10 @@
   font-weight: 300;
 }
 
+abbr[title], acronym[title] {
+  text-decoration: none;
+}
+
 .transition {
   -webkit-transition: all .3s ease-in-out;
   -moz-transition: all .3s ease-in-out;

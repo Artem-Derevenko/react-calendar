@@ -30,10 +30,22 @@
     margin: 0;
     font-size: 12px;
     color: #0087ff;
+    display: flex;
+    justify-content: space-between;
 }
 
 .event-item .text {
     margin: 10px 0 0 0;
     font-size: 14px;
-    color: #545454;;
+    color: #545454;
+}
+
+.event-item .event-type:before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    background: #0087ff;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3px 2px 0;
 }

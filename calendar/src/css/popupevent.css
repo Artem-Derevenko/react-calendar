@@ -24,7 +24,7 @@
 .event-header h4 {
     font-size: 18px;
     color: #0087ff;
-    width: 328px;
+    width: 288px;
     text-align: center;
 }
 
@@ -36,4 +36,85 @@
 .event-header .icon:hover {
     cursor: pointer;
     color: #0087ff;
+}
+
+.react-calendar {
+    font-size: 12px;
+    width: 252px;
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.react-calendar button {
+    background: transparent;
+    border: none;
+    outline: none;
+    height: 36px;
+}
+
+.react-calendar__month-view__days button {
+    border-radius: 50%;
+    border: 1px solid #fff;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    max-width: 30px !important;
+    margin: 3px;
+}
+
+.react-calendar__month-view__days button:hover,
+.react-calendar__month-view__days button.react-calendar__tile--active {
+    border: 1px solid #0087ff;
+    background: #0087ff;
+    color: #fff;
+}
+
+.react-calendar__navigation button,
+.react-calendar__month-view__weekdays div {
+    font-size: 14px;
+    text-align: center;
+}
+
+.react-calendar__month-view__weekdays div {
+    color: #9e9a9a;
+    padding-bottom: 10px;
+    width: 30px;
+    height: 30px;
+    max-width: 30px !important;
+    margin: 3px;
+}
+
+.react-calendar__navigation button.react-calendar__navigation__arrow {
+    font-size: 22px;
+    padding: 0 3px;
+    cursor: pointer;
+}
+
+.wrap-block {
+    width: 320px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.select {
+    width: 150px;
+    height: 40px;
+    padding: 0 10px;
+    display: block;
+}
+
+.textarea {
+    width: 320px;
+    height: 60px;
+    padding: 5px 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.input-time {
+    width: 150px;
+    height: 40px;
+    padding: 0 10px;
+    display: block;
 }

@@ -8,6 +8,7 @@ import BlockEvents from './components/BlockEvents/BlockEvents.jsx';
 import NavBar from './components/NavBar/NavBar.jsx';
 import PopupNewEvent from './components/PopupEvent/PopupNewEvent.jsx';
 import PopupViewEvent from './components/PopupEvent/PopupViewEvent.jsx';
+import ids from 'shortid';
 import './css/App.css';
 
 class App extends Component {
@@ -37,6 +38,12 @@ class App extends Component {
 
   addNewEvent = (value) => {
     this.setState({ newEvent: value })
+  }
+
+  onSendNewEvent = (value) => {
+      value.date = value.date.toString();
+      console.log(value)
+      firebase.database().ref().child(`eventList/${ids.generate()}`).set(value);
   }
 
   viewEvent = (value) => {
@@ -69,7 +76,7 @@ class App extends Component {
 
   render() {
     const { page } = this.state;
-    const { viewEvent, addNewEvent, switchPage, closeViewEvent } = this;
+    const { viewEvent, addNewEvent, switchPage, closeViewEvent, onSendNewEvent } = this;
 
     return (
       <div className="App">
@@ -84,6 +91,7 @@ class App extends Component {
         />
         <PopupNewEvent
           addNewEvent={addNewEvent}
+          onSendNewEvent={onSendNewEvent}
           { ... this.state }
         />
         <PopupViewEvent

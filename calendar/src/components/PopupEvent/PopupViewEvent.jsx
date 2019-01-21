@@ -35,6 +35,7 @@ class PopupViewEvent extends Component {
                             return <div key={ids.generate()} className='event-item'>
                                 <p className='date'>
                                     <span>{`${new Date(item.date).getDate()} ${MONTH[new Date(item.date).getMonth()]} ${new Date(item.date).getFullYear()}, ${item.time}`}</span>
+                                    <span className='event-type'>{item.eventTypeName}</span>
                                 </p>
                                 <p className='text'>{item.text}</p>
                             </div>
