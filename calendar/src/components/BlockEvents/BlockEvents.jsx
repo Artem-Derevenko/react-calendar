@@ -10,17 +10,31 @@ const MONTH = ["января","февраля","марта",
     "октября","ноября","декабря"];
 
 class BlockEvents extends Component {
-    onEditEvent = () => {
-
+    onEditEvent = (data) => {
+        this.props.onEditEvent(data);
     }
 
-    onDeleteEvent = () => {
-
+    onDeleteEvent = (key) => {
+        this.props.onDeleteEvent(key);
     }
 
-        render() {
+    sortEventByDate = (arr) => {
+        let n = arr.length;
+        for (let i = 0; i < n-1; i++) {
+            for (let j = 0; j < n-1-i; j++) {
+                if (new Date(arr[j+1].date) < new Date(arr[j].date)) {
+                    let t = arr[j+1]; arr[j+1] = arr[j]; arr[j] = t;
+                }
+            }
+        }
+        return arr;
+    }
+
+    render() {
         const { eventList } = this.props;
-            const { onEditEvent, onDeleteEvent  } = this;
+        const { onEditEvent, onDeleteEvent, sortEventByDate  } = this;
+        const sortListByDate = sortEventByDate(eventList);
+
         return (
             <div className='block-events'>
                 <div className="event-header">
@@ -28,9 +42,9 @@ class BlockEvents extends Component {
                 </div>
                 <div className='event-list'>
                     {
-                        eventList && eventList.length > 0 &&
+                        sortListByDate && sortListByDate.length > 0 &&
 
-                        eventList.map( (item) => {
+                        sortListByDate.map( (item) => {
                             return <div key={ids.generate()} className='event-item'>
                                 <p className='date'>
                                     <span>{`${new Date(item.date).getDate()} ${MONTH[new Date(item.date).getMonth()]} ${new Date(item.date).getFullYear()}, ${item.time}`}</span>
@@ -38,11 +52,11 @@ class BlockEvents extends Component {
                                     <span className='icon-button'>
                                         <FaPen
                                             className="icon"
-                                            onClick = {onEditEvent}
+                                            onClick={() => onEditEvent(item)}
                                         />
                                         <FaTrash
                                             className="icon"
-                                            onClick = {onDeleteEvent}
+                                            onClick={() => onDeleteEvent(item['.key'])}
                                         />
                                     </span>
                                 </p>

@@ -48,11 +48,11 @@ class PopupViewEvent extends Component {
                                     <span className='icon-button'>
                                         <FaPen
                                             className="icon"
-                                            onClick = {() => onEditEvent(item)}
+                                            onClick={() => onEditEvent(item)}
                                         />
                                         <FaTrash
                                             className="icon"
-                                            onClick = {() => onDeleteEvent(item['.key'])}
+                                            onClick={() => onDeleteEvent(item['.key'])}
                                         />
                                     </span>
                                 </p>

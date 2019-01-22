@@ -77,6 +77,9 @@ class App extends Component {
           firebase.database().ref().child(`eventList/${key}`).update(value);
           this.viewEvent(this.state.eventViewId);
       }
+      if (this.state.dayEventList && this.state.dayEventList.length === 0) {
+          this.setState({viewEvent: false});
+      }
   }
 
   viewEvent = (value) => {
@@ -121,7 +124,11 @@ class App extends Component {
               viewEvent={viewEvent}
               changeDay={changeDay}
           />
-          <BlockEvents { ... this.state } />
+          <BlockEvents
+              { ... this.state }
+              onDeleteEvent={onDeleteEvent}
+              onEditEvent={onEditEvent}
+          />
         </div>
         <NavBar
           switchPage={switchPage}
