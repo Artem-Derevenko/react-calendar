@@ -15,7 +15,7 @@ class BlockCalendarDay extends Component {
             firstDayWeek: this.getMonday(new Date()),
             day: new Date(),
             dayEventList: [],
-            eventList: []
+            eventList: this.props.eventList ? this.props.eventList : []
         };
     }
 
@@ -81,7 +81,7 @@ class BlockCalendarDay extends Component {
     render() {
         const { nextWeek, prevWeek, openEvent, changeDay } = this;
         const { firstDayWeek, day, dayEventList, eventList } = this.state;
-
+console.log(this.state)
         return (
             <section>
                 <div className='calendar-arrow'>
