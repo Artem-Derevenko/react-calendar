@@ -13,37 +13,70 @@ import './css/App.css';
 
 class App extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      page: 'calendar',
-      activeMenu: 'month',
-      newEvent: false,
-      viewEvent: false,
-      eventList: [],
-      eventViewId: [],
-      dayEventList: []
-    };
+      super(props);
+      this.state = {
+          page: 'calendar',
+          activeMenu: 'month',
+          newEvent: false,
+          viewEvent: false,
+          eventList: [],
+          eventViewId: [],
+          dayEventList: [],
+          editEvent: [],
+          day: new Date()
+      };
   }
 
   componentDidMount() {
       this.bindAsArray(firebase.database().ref().child("eventList"), "eventList");
   }
 
+  changeDay = (dayWeek) => {
+      this.setState({
+          day: dayWeek
+      });
+  }
+
   switchPage = (page, activeMenu) => {
-    this.setState({
-      page: page,
-      activeMenu: activeMenu
-    })
+      this.setState({
+          page: page,
+          activeMenu: activeMenu
+      })
   }
 
   addNewEvent = (value) => {
-    this.setState({ newEvent: value })
+      this.setState({
+          newEvent: value,
+          editEvent: []
+      })
+  }
+
+  onDeleteEvent = (key) => {
+      firebase.database().ref().child(`eventList/${key}`).remove();
+      this.closeViewEvent();
+  }
+
+  onEditEvent = (data) => {
+      this.setState({
+          newEvent: true,
+          editEvent: data
+      });
   }
 
   onSendNewEvent = (value) => {
-      value.date = value.date.toString();
-      console.log(value)
-      firebase.database().ref().child(`eventList/${ids.generate()}`).set(value);
+      if (value) {
+          value.date = value.date.toString();
+          firebase.database().ref().child(`eventList/${ids.generate()}`).set(value);
+      }
+  }
+
+  onUpdateEvent = (value) => {
+      let key = this.state.editEvent['.key'];
+      if (value && key) {
+          value.date = value.date.toString();
+          firebase.database().ref().child(`eventList/${key}`).update(value);
+          this.viewEvent(this.state.eventViewId);
+      }
   }
 
   viewEvent = (value) => {
@@ -75,13 +108,19 @@ class App extends Component {
   }
 
   render() {
-    const { page } = this.state;
-    const { viewEvent, addNewEvent, switchPage, closeViewEvent, onSendNewEvent } = this;
+    const { page, newEvent } = this.state;
+    const { viewEvent, addNewEvent, switchPage,
+        closeViewEvent, onSendNewEvent, changeDay,
+        onDeleteEvent, onEditEvent, onUpdateEvent } = this;
 
     return (
       <div className="App">
         <div className={`wrap transition ${page}`}>
-          <BlockCalendar { ... this.state } viewEvent={viewEvent} />
+          <BlockCalendar
+              { ... this.state }
+              viewEvent={viewEvent}
+              changeDay={changeDay}
+          />
           <BlockEvents { ... this.state } />
         </div>
         <NavBar
@@ -89,14 +128,20 @@ class App extends Component {
           addNewEvent={addNewEvent}
           { ... this.state }
         />
-        <PopupNewEvent
-          addNewEvent={addNewEvent}
-          onSendNewEvent={onSendNewEvent}
-          { ... this.state }
-        />
+        {
+            newEvent &&
+            <PopupNewEvent
+                addNewEvent={addNewEvent}
+                onSendNewEvent={onSendNewEvent}
+                onUpdateEvent={onUpdateEvent}
+                { ... this.state }
+            />
+        }
         <PopupViewEvent
           { ... this.state }
           closeViewEvent={closeViewEvent}
+          onDeleteEvent={onDeleteEvent}
+          onEditEvent={onEditEvent}
         />
       </div>
     );

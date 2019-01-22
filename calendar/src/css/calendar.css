@@ -155,7 +155,7 @@
     width: 40px;
     height: 30px;
     background: #fff;
-    border-bottom: 1px solid #ecf2f5;
+    border-top: 1px solid #ecf2f5;
     border-right: 1px solid #ecf2f5;
     -webkit-transition: all .2s linear;
     -moz-transition: all .2s linear;
@@ -167,8 +167,7 @@
 .table-week-time td.event {
     cursor: pointer;
     position: relative;
-    border-bottom: 1px solid #89d2ff;
-    border-right: 1px solid #89d2ff;
+    border-top: 1px solid #89d2ff;
 }
 
 .table-week-time td.event:before {

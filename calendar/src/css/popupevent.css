@@ -9,6 +9,10 @@
     z-index: 10;
 }
 
+.popup-event-wrap.new {
+    z-index: 20;
+}
+
 .popup-event-wrap.show {
     left: 0;
 }
@@ -60,6 +64,8 @@
     height: 30px;
     max-width: 30px !important;
     margin: 3px;
+    padding: 0;
+    font-size: 12px;
 }
 
 .react-calendar__month-view__days button:hover,
@@ -102,6 +108,10 @@
     height: 40px;
     padding: 0 10px;
     display: block;
+    border-radius: 0;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+    outline: none;
 }
 
 .textarea {
@@ -110,6 +120,10 @@
     padding: 5px 10px;
     display: block;
     margin: 0 auto;
+    border-radius: 0;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+    outline: none;
 }
 
 .input-time {
@@ -117,4 +131,7 @@
     height: 40px;
     padding: 0 10px;
     display: block;
+    border-radius: 0;
+    border: 1px solid #d7d7d7;
+    background: #fff;
 }

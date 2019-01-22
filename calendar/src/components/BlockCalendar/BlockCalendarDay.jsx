@@ -14,17 +14,18 @@ class BlockCalendarDay extends Component {
         this.state = {
             firstDayWeek: this.getMonday(new Date()),
             day: new Date(),
-            dayEventList: []
+            dayEventList: [],
+            eventList: []
         };
     }
 
     componentDidMount() {
-        this.getDayEventList(new Date());
+        this.getDayEventList(this.props.eventList, new Date());
     }
 
-    getDayEventList = (day) => {
-        if (this.props.eventList) {
-            let eventList = this.props.eventList;
+    getDayEventList = (data, day) => {
+        if (data) {
+            let eventList = data;
             let dayEventList = eventList.filter( (item) => {
                 return (new Date(item.date).getMonth() === day.getMonth() &&
                     new Date(item.date).getFullYear() === day.getFullYear() &&
@@ -34,6 +35,14 @@ class BlockCalendarDay extends Component {
                 dayEventList: dayEventList
             });
         }
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+            eventList: nextProps.eventList,
+            day: nextProps.day
+        });
+        this.getDayEventList(nextProps.eventList, nextProps.day);
     }
 
     getMonday = (d) => {
@@ -66,16 +75,12 @@ class BlockCalendarDay extends Component {
     }
 
     changeDay = (dayWeek) => {
-        this.getDayEventList(dayWeek);
-        this.setState({
-            day: dayWeek
-        });
+        this.props.changeDay(dayWeek);
     }
 
     render() {
         const { nextWeek, prevWeek, openEvent, changeDay } = this;
-        const { firstDayWeek, day, dayEventList } = this.state;
-        const { eventList } = this.props;
+        const { firstDayWeek, day, dayEventList, eventList } = this.state;
 
         return (
             <section>

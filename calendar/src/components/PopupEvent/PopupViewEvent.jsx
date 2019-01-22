@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { FaCheck } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
+import { FaPen } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import ids from 'shortid';
 import '../../css/popupevent.css';
 
@@ -14,9 +15,17 @@ class PopupViewEvent extends Component {
         this.props.closeViewEvent();
     }
 
+    onEditEvent = (data) => {
+        this.props.onEditEvent(data);
+    }
+
+    onDeleteEvent = (key) => {
+        this.props.onDeleteEvent(key);
+    }
+
     render() {
         const { viewEvent, dayEventList } = this.props;
-        const { onCloseEvent  } = this;
+        const { onCloseEvent, onEditEvent, onDeleteEvent  } = this;
 
         return (
             <div className={`popup-event-wrap transition ${ viewEvent ? 'show' : ''}`}>
@@ -36,6 +45,16 @@ class PopupViewEvent extends Component {
                                 <p className='date'>
                                     <span>{`${new Date(item.date).getDate()} ${MONTH[new Date(item.date).getMonth()]} ${new Date(item.date).getFullYear()}, ${item.time}`}</span>
                                     <span className='event-type'>{item.eventTypeName}</span>
+                                    <span className='icon-button'>
+                                        <FaPen
+                                            className="icon"
+                                            onClick = {() => onEditEvent(item)}
+                                        />
+                                        <FaTrash
+                                            className="icon"
+                                            onClick = {() => onDeleteEvent(item['.key'])}
+                                        />
+                                    </span>
                                 </p>
                                 <p className='text'>{item.text}</p>
                             </div>

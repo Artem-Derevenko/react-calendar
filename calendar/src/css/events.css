@@ -34,6 +34,16 @@
     justify-content: space-between;
 }
 
+.event-item .date .icon-button svg {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #9e9a9a;
+}
+
+.event-item .date .icon-button svg:hover {
+    color: #0087ff;
+}
+
 .event-item .text {
     margin: 10px 0 0 0;
     font-size: 14px;

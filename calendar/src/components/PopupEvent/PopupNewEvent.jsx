@@ -18,6 +18,20 @@ class PopupNewEvent extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.editEvent && Object.keys(this.props.editEvent).length > 0) {
+            let data = this.props.editEvent;
+            this.setState({
+                id: data.id ? data.id : ids.generate(),
+                date: data.date ? new Date(data.date) : new Date(),
+                time: data.time ? data.time : '',
+                eventType: data.eventType ? data.eventType : "meeting",
+                eventTypeName: data.eventTypeName ? data.eventTypeName : 'Встреча',
+                text: data.text ? data.text : ''
+            });
+        }
+    }
+
     onCloseNewEvent = () => {
         this.props.addNewEvent(false);
         this.setState({
@@ -38,6 +52,12 @@ class PopupNewEvent extends Component {
         this.onCloseNewEvent();
     }
 
+    onUpdateEvent = () => {
+        let eventInfo = { ... this.state };
+        this.props.onUpdateEvent(eventInfo);
+        this.onCloseNewEvent();
+    }
+
     handleChange = (e) => {
         let field, value;
         field = e.target.name;
@@ -54,25 +74,25 @@ class PopupNewEvent extends Component {
     }
 
     render() {
-        const { newEvent } = this.props;
+        const { newEvent, editEvent } = this.props;
         const { onCloseNewEvent, onChange,
                 handleChange, onSendNewEvent,
-                handleChangeType } = this;
+                handleChangeType, onUpdateEvent } = this;
         const { date, eventType, text, time } = this.state;
 
         return (
-            <div className={`popup-event-wrap transition ${ newEvent ? 'show' : ''}`}>
+            <div className={`popup-event-wrap new transition ${ newEvent ? 'show' : ''}`}>
                 <div className="event-header">
                     <FaTimes
                         className="icon"
                         onClick = {onCloseNewEvent}
                     />
-                    <h4>Создать</h4>
+                    <h4>{ (editEvent && Object.keys(editEvent).length > 0) ? "Редактирование события" : "Создать событие"}</h4>
                     {
                         text && (text.length > 0) && time && (time.length > 0) &&
                         <FaCheck
                             className="icon"
-                            onClick = {onSendNewEvent}
+                            onClick={(editEvent && Object.keys(editEvent).length > 0) ? onUpdateEvent : onSendNewEvent}
                         />
                     }
                 </div>
