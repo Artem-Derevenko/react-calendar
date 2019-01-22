@@ -81,7 +81,7 @@ class BlockCalendarDay extends Component {
     render() {
         const { nextWeek, prevWeek, openEvent, changeDay } = this;
         const { firstDayWeek, day, dayEventList, eventList } = this.state;
-console.log(this.state)
+
         return (
             <section>
                 <div className='calendar-arrow'>
@@ -120,8 +120,9 @@ console.log(this.state)
                                         if (new Date(item.date).getMonth() === dayWeek.getMonth() &&
                                             new Date(item.date).getFullYear() === dayWeek.getFullYear() &&
                                             new Date(item.date).getDate() === dayWeek.getDate()) {
-                                            return eventIdList.push(item.id);
+                                            eventIdList.push(item.id);
                                         }
+                                        return eventIdList;
                                     });
                                 }
                                 return <td className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`}
@@ -135,7 +136,7 @@ console.log(this.state)
                     </tbody>
                 </table>
                 <div className='table-day-time'>
-                    <table>
+                    <table cellSpacing="0">
                         <tbody>
                         {[...Array(24)].map((k, j) => {
                             let eventIdList = [];
@@ -146,6 +147,7 @@ console.log(this.state)
                                         eventIdList.push(item.id);
                                         eventTextList.push(item.text);
                                     }
+                                    return eventTextList;
                                 });
                             }
                             return <tr key={ids.generate()}>

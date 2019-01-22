@@ -88,8 +88,9 @@ class BlockCalendarWeek extends Component {
                                         if (new Date(item.date).getMonth() === day.getMonth() &&
                                             new Date(item.date).getFullYear() === day.getFullYear() &&
                                             new Date(item.date).getDate() === day.getDate()) {
-                                            return eventIdList.push(item.id);
+                                            eventIdList.push(item.id);
                                         }
+                                        return eventIdList;
                                     });
                                 }
                                 return <td className={`${classToday} ${(eventIdList.length > 0) ? 'event' : ''}`} key={ids.generate()}>
@@ -100,7 +101,7 @@ class BlockCalendarWeek extends Component {
                     </tbody>
                 </table>
                 <div className='table-week-time'>
-                    <table>
+                    <table cellSpacing="0">
                         <tbody>
                             {[...Array(24)].map((k, j) => {
                                 return <tr key={ids.generate()}>
@@ -114,8 +115,9 @@ class BlockCalendarWeek extends Component {
                                                     new Date(item.date).getFullYear() === day.getFullYear() &&
                                                     new Date(item.date).getDate() === day.getDate() &&
                                                     Number(item.time.split(':')[0]) === j ) {
-                                                    return eventIdList.push(item.id);
+                                                    eventIdList.push(item.id);
                                                 }
+                                                return eventIdList;
                                             });
                                         }
                                         return <td

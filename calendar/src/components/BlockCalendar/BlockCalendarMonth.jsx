@@ -91,8 +91,9 @@ class BlockCalendarMonth extends Component {
                                                 if (new Date(item.date).getMonth() === d.getMonth() &&
                                                     new Date(item.date).getFullYear() === d.getFullYear() &&
                                                     new Date(item.date).getDate() === (ind - dNfirst + 1)) {
-                                                    return eventIdList.push(item.id);
+                                                    eventIdList.push(item.id);
                                                 }
+                                                return eventIdList;
                                             });
                                         }
                                         let classToday = ((ind - dNfirst + 1) === new Date().getDate() &&

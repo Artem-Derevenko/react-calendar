@@ -22,8 +22,7 @@
     width: 100%;
     height: auto;
     border-top: 1px solid #89d2ff;
-    margin-bottom: 5px;
-    padding: 15px;
+    padding: 10px;
 }
 
 .event-item .date {
@@ -45,7 +44,7 @@
 }
 
 .event-item .text {
-    margin: 10px 0 0 0;
+    margin: 8px 0 0 0;
     font-size: 14px;
     color: #545454;
 }

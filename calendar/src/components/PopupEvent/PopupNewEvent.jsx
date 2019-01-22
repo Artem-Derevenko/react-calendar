@@ -47,13 +47,13 @@ class PopupNewEvent extends Component {
     onChange = date => this.setState({ date: date })
 
     onSendNewEvent = () => {
-        let eventInfo = { ... this.state };
+        let eventInfo = {...this.state};
         this.props.onSendNewEvent(eventInfo);
         this.onCloseNewEvent();
     }
 
     onUpdateEvent = () => {
-        let eventInfo = { ... this.state };
+        let eventInfo = {...this.state};
         this.props.onUpdateEvent(eventInfo);
         this.onCloseNewEvent();
     }

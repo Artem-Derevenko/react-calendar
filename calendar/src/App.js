@@ -90,9 +90,11 @@ class App extends Component {
           eventViewId.map( (itemId) => {
               eventList.map( (item) => {
                   if (item.id === itemId) {
-                      return dayEventList.push(item);
+                      dayEventList.push(item);
                   }
+                  return dayEventList;
               });
+              return dayEventList;
           });
           this.setState({
               dayEventList: dayEventList,
@@ -120,12 +122,12 @@ class App extends Component {
       <div className="App">
         <div className={`wrap transition ${page}`}>
           <BlockCalendar
-              { ... this.state }
+              {...this.state}
               viewEvent={viewEvent}
               changeDay={changeDay}
           />
           <BlockEvents
-              { ... this.state }
+              {...this.state}
               onDeleteEvent={onDeleteEvent}
               onEditEvent={onEditEvent}
           />
@@ -133,7 +135,7 @@ class App extends Component {
         <NavBar
           switchPage={switchPage}
           addNewEvent={addNewEvent}
-          { ... this.state }
+          {...this.state}
         />
         {
             newEvent &&
@@ -141,11 +143,11 @@ class App extends Component {
                 addNewEvent={addNewEvent}
                 onSendNewEvent={onSendNewEvent}
                 onUpdateEvent={onUpdateEvent}
-                { ... this.state }
+                {...this.state}
             />
         }
         <PopupViewEvent
-          { ... this.state }
+          {...this.state}
           closeViewEvent={closeViewEvent}
           onDeleteEvent={onDeleteEvent}
           onEditEvent={onEditEvent}

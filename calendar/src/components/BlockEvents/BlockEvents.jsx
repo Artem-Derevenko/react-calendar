@@ -10,6 +10,20 @@ const MONTH = ["января","февраля","марта",
     "октября","ноября","декабря"];
 
 class BlockEvents extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            eventType: "all",
+            eventList: []
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.eventList) {
+            this.setState({ eventList: this.props.eventList });
+        }
+    }
+
     onEditEvent = (data) => {
         this.props.onEditEvent(data);
     }
@@ -30,15 +44,41 @@ class BlockEvents extends Component {
         return arr;
     }
 
+    handleChangeType = (e) => {
+        let value = e.target.value;
+        this.setState({ eventType: value });
+    }
+
+    filterEvent = (arr, type) => {
+        let eventType = type;
+        let eventList = arr;
+        let filterEventList = [];
+        if (arr && type) {
+            if (eventType === 'all') {
+                filterEventList = eventList;
+            } else {
+                filterEventList = eventList.filter((item) => item.eventType === eventType);
+            }
+        }
+        return filterEventList;
+    }
+
     render() {
+        const { eventType } = this.state;
         const { eventList } = this.props;
-        const { onEditEvent, onDeleteEvent, sortEventByDate  } = this;
-        const sortListByDate = sortEventByDate(eventList);
+        const { onEditEvent, onDeleteEvent, sortEventByDate, handleChangeType, filterEvent  } = this;
+        let filterList = filterEvent(eventList, eventType);
+        let sortListByDate = sortEventByDate(filterList);
 
         return (
             <div className='block-events'>
                 <div className="event-header">
                     <h4>Расписание событий</h4>
+                    <select className="select" name="eventType" value={eventType} onChange={handleChangeType}>
+                        <option value="all" key={ids.generate()}>Все события</option>
+                        <option value="meeting" key={ids.generate()}>Встреча</option>
+                        <option value="holiday" key={ids.generate()}>Праздники</option>
+                    </select>
                 </div>
                 <div className='event-list'>
                     {
